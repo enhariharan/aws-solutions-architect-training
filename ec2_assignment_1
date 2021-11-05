@@ -1,0 +1,16 @@
+# Ensure that nginx is installed beforehand (sudo apt install -y nginx).
+# Place this file in the directory /etc/nginx/sites-enabled.
+
+server {
+        listen 81;
+        listen [::]:81;
+
+        server_name ec1_assignment_1.hariharan.com;
+
+        root /var/www/ec2_assignment_1;
+        index index.html;
+
+        location / {
+                try_files $uri $uri/ = 404;
+        }
+}
