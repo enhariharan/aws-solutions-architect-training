@@ -11,7 +11,7 @@ You work for XYZ Corporation. Your corporation is working on an application and 
 
 ## Answer
 ### 1. Create an Instance in us-east-1 (N. Virginia) region with Linux OS and manage the requirement of web servers of your company using AMI.
-* Login into https://as/amazon.com.
+* Login into https://aws.amazon.com.
 * In the top status bar, just before the Login Name, click on the drop-down to choose the region. Choose **US East (N. Virgina) us-east-1**.
 * Click on "services" in top-left and select **EC2**.
   * In "Step 1: Choose an Amazon Machine Image (AMI)", choose an instance of **Ubuntu Server** on **64-bit (x86)**.
