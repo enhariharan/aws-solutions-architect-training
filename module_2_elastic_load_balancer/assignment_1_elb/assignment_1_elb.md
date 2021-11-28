@@ -20,7 +20,28 @@
 
 
 ### 2. Create a Classic Load Balancer
-### 3. Register the 3 EC2 insances to the Classic Load Balancer
-### 4. Migrate the Classic Load Balancer into an Application Load Balancer
+* In the "EC2 Management Console", select **Load Balancers** under **Load Balancing**. Click on **Create Load Bakancer**.
+* In the page "Select load balancer type", select **Classic Load Balancer - previous generation** and click on **Create**.
+* In "Step 1: Define Load Balancer", give "Load Balancer name" as **module-1-assignment-1-classicelb** and select **Next: Assign Security Groups**.
+* In " Step 2: Assign Security Groups", select all the security groups and select **Next: Configure Security Settings**.
+* Keep clicking Next step until you reach **Step 6: Add Tags". Here, provide **module-1-assignment-1-classicelb** as a Tag.
+* Click on **Review and Create**. In the next page, review all your settings and click on **Create** whne ready.
+* Go back to the Load Balancers page in the EC2 console to verify that ELB is created.
 
-This finsihed the steps asked in the question.
+### 3. Register the 3 EC2 instances to the Classic Load Balancer
+* Option-1: During creation of a new Load Balancer
+  * While creating a new load balancer, **Step 5: Add EC2 Instances** provides an opportunity to select EC2 instances to attach to the load balancer.
+
+* Option-2: After creation of a new Load Balancer
+  * In the "EC2 Management Console", select **Load Balancers** under **Load Balancing**. Select the load balancer created above, in this page.
+  * Click on **Actions --> Edit instances**.
+  * In the dialog "Add and Remove Instances", choose all the 3 EC2 instances shown. Select **Save**.
+  * Back in the EC2 Management Console page for Load Balancers, click on **Instances** to verify that all 3 instances are selected.
+
+### 4. Migrate the Classic Load Balancer into an Application Load Balancer
+  * In the "EC2 Management Console", select **Load Balancers** under **Load Balancing**. Select the load balancer created above, in this page.
+  * Under the tab "Description", note the entry called **Type Classic (Migrate Now)**. Click on **Migrate Now**.
+  * In the "Migration" tab, click on **Launch ALB Migration Wizard**. This will take to **Step 6: Review**. Review and finally click on **Create**.
+  * Go back to the "EC2 Management Console" and verify that there are now 2 load balancers. One id of Type **Classic** and a new ELB is of Type **Application**.
+
+This finishes the steps asked in the question.
