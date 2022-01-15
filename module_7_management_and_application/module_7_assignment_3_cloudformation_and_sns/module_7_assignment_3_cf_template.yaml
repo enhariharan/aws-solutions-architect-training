@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "S3 Bucket created for Module 7 Assignment 1 as per instructions provided in problem statement."
+Resources:
+  intellipaatHariharanNarayanan:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: m7a1-s3-bucket-intellipaat-hariharan-narayanan
+      VersionConfiguration:
+        Status: Enabled
+
