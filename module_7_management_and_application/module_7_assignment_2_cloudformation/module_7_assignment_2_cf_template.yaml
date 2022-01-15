@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "Module 7 Assignment 2 - YAML file to create a VPC, 1 public subnet, and an Amazon Linux EC2 instance, named CFInstance, in the public subnet."
+Resources:
+#VPC
+  m7a2vpc:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      InstanceTenancy: Default
+      Tags:
+        - Key: Name
+          Value: m7a2vpc
+        - Key: CreatedBy
+          Value: Hariharan Narayanan
+#Public Subnet
+  m7a2publicsubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId:
+        Ref: m7a2vpc
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "us-east-1a"
+      MapPublicIpOnLaunch: true # Map a public IP on launch since this is a public subnet
+      Tags:
+        - Key: Name
+          Value: m7a2publicsubnet
+        - Key: CreatedBy
+          Value: Hariharan Narayanan
+#Public route table
+  m7a2publicroutetable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: m7a2vpc
+      Tags:
+        - Key: Name
+          Value: m7a2publicroutetable
+        - Key: CreatedBy
+          Value: Hariharan Narayanan
+#Attach public route table to public subnet
+  m7a2attachpublicrttosubnet:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: m7a2publicsubnet
+      RouteTableId:
+        Ref: m7a2publicroutetable
+#Internet gateway
+  m7a2internetgw:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+        Tags:
+        - Key: Name
+          Value: m7a2internetgw
+        - Key: CreatedBy
+          Value: Hariharan Narayanan
+#Attach internet gateway to vpc
+  m7a2attachigwtovpc:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+         Ref: m7a2vpc
+      InternetGatewayId:
+         Ref: m7a2internetgw
+#Route entry in public route table for instances in the public subnet to reach the Internet and vice-versa.
+  m7a2publicroutetableroute:
+    Type: AWS::EC2::Route
+    Properties: 
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: m7a2internetgw
+      RouteTableId: m7a2publicroutetable
+#Create an EC2 instance of Aazon Linux called CFinstance in the public subnet
+  CFinstance:
+    Type: AWS::EC2::Instance
+    Properties: 
+      AvailabilityZone: "us-east-1a"
+      ImageId: "ami-08e4e35cccc6189f4"
+      InstanceType: "t3.micro"
+      KeyName: "hariharan_aws_us_east_1"
+      SubnetId: 
+        Ref: m7a2publicsubnet
+      Tags: 
+        - Key: Name
+          Value: CFinstance
+        - Key: CreatedBy
+          Value: Hariharan Narayanan
+
